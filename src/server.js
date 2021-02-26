@@ -45,7 +45,7 @@ server.use(genericErrorHandler);
 console.log(listEndPoints(server));
 
 mongoose
-  .connect(MONGO_CONNECTIO, {
+  .connect(MONGO_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
