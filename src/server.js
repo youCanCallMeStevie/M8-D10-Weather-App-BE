@@ -3,7 +3,8 @@ const listEndPoints = require("express-list-endpoints");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
-const apiRoutes = require("./services/index");
+const userRoutes = require("./services/users/route")
+const weatherRoutes = require("./services/weather/route")
 const cookieParser = require("cookie-parser");
 const {
   notFoundHandler,
@@ -36,8 +37,8 @@ server.use(express.json());
 server.use(cookieParser());
 
 //Routes
-server.use("/api", apiRoutes);
-
+server.use("/users", userRoutes);
+server.use("/weather", weatherRoutes);
 //ERROR HANDLERS
 server.use(badRequestHandler);
 server.use(notFoundHandler);

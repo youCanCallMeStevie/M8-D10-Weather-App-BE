@@ -6,11 +6,14 @@ const ApiError = require('../../utils/apiError');
 exports.weatherSearchController = async(req, res, next) => {
     const url =`${weatherUrl}`
     try {
-        const res = axios.get(url+`?q=${req.query.city}&appid=${API_KEY}`);
-        if (!res.ok){
+        console.log("hello")
+        const weather = await axios.get(url+`?q=${req.query.city}&appid=${API_KEY}`);
+        console.log("req.query.city", req.query.city)
+        const data = await weather.data
+        if (!data){
             throw new ApiError(404, `No weather for that city found`);
         } else{
-            res.status(200).json({ res })
+            res.status(200).json({ data })
         }
     } catch (error) {
         console.log(`Error with weatherSearchController`, error);
