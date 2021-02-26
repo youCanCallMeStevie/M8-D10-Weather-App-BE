@@ -12,7 +12,7 @@ const {
 } = require("./middlewares/errorHandling");
 
 require("./middlewares/passports");
-const { PORT, FE_URL, FE_PROD_URL, MONGOOSE_CONNECTION } = process.env;
+const { PORT, FE_URL, FE_PROD_URL, MONGO_CONNECTION } = process.env;
 
 //Initial Set-up
 const server = express();
