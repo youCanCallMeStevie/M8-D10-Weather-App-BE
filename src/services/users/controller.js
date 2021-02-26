@@ -35,7 +35,7 @@ exports.userLogoutController = async (req, res, next) => {
     console.log("clearcookies");
     res.clearCookie("accessToken", { httpOnly: true });
     res.clearCookie("refreshToken", { httpOnly: true });
-    res.redirect("http://localhost:3000");
+    res.redirect("http://localhost:3001");
   } catch (error) {
     console.log(error);
     next(error);
