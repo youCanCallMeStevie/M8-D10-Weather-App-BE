@@ -13,28 +13,30 @@ const {
 } = require("./middlewares/errorHandling");
 
 require("./middlewares/passports");
-const { PORT, FE_URL, FE_PROD_URL, MONGO_CONNECTION } = process.env;
+const { PORT, FE_URL, FE_URL_PROD, MONGO_CONNECTION } = process.env;
 
 //Initial Set-up
 const server = express();
 PORT || 5050;
 
 //Middlewares
-const whiteList = [`${FE_URL},${FE_PROD_URL} `];
-const corsOptions = {
-  orgin: (orgin, callback) => {
-    if (whiteList.indexOf(orgin) !== -1 || !orgin) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, //credentials=cookies
-};
-server.use(cors(corsOptions)); //if using cookies, you can't leave cors empty
+server.use(cookieParser());
+
+const whiteList = [FE_URL, FE_URL_PROD];
+// const corsOptions = {
+//   orgin: (orgin, callback) => {
+//     if (whiteList.indexOf(orgin) !== -1 || !orgin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true, //credentials=cookies
+// };
+server.use(cors({origin: whiteList,
+  credentials: true})); //if using cookies, you can't leave cors empty
 server.use(passport.initialize());
 server.use(express.json());
-server.use(cookieParser());
 
 //Routes
 server.use("/users", userRoutes);

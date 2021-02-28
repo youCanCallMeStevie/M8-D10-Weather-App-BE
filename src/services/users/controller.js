@@ -6,6 +6,7 @@ exports.userLoginController = async (req, res, next) => {
   try {
     const { user } = req;
     res.send(user);
+    console.log("userLoginController", user)
   } catch (error) {
     console.log(error);
     next(error);
@@ -35,7 +36,7 @@ exports.userLogoutController = async (req, res, next) => {
     console.log("clearcookies");
     res.clearCookie("accessToken", { httpOnly: true });
     res.clearCookie("refreshToken", { httpOnly: true });
-    res.redirect("http://localhost:3001");
+    res.redirect(`${process.env.FE_URL}`);
   } catch (error) {
     console.log(error);
     next(error);

@@ -3,6 +3,7 @@ const {FE_URL} = process.env
 exports.oAuthRedirectController= async (req, res, next) => {
 try {
     const {accessToken, refreshToken} = req.user.tokens;
+    console.log("req.user", req.user)
     res.cookie("accessToken", accessToken, {httpOnly: true});
     res.cookie("refreshToken", refreshToken, {httpOnly: true, path: "/refreshToken"});;
     res.status(200).redirect(`${FE_URL}`)
