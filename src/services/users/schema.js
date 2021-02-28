@@ -35,6 +35,7 @@ const UserSchema = new Schema(
       type: String,
       required: false,
     },
+    favCities: [{type: String}]
   },
   {
     timestamps: true,

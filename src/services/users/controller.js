@@ -5,8 +5,7 @@ const UserModel = require("../users/schema");
 exports.userLoginController = async (req, res, next) => {
   try {
     const { user } = req;
-    res.send(user);
-    console.log("userLoginController", user)
+		res.status(200).send(user);
   } catch (error) {
     console.log(error);
     next(error);
@@ -41,4 +40,38 @@ exports.userLogoutController = async (req, res, next) => {
     console.log(error);
     next(error);
   }
+};
+
+
+exports.addFavCityController = async (req, res, next) => {
+	try {
+		const {token} = req.cookies;
+		const { cityName } = req.params;
+		const { _id } = await verifyToken(token);
+
+		const user = await UserModel.findById(_id);
+		user.favCities.push(cityName);
+		await user.save();
+		res.status(200).send(user);
+	} catch (error) {
+		console.log(error);
+		next(error);
+	}
+};
+
+exports.removeFavCityController = async (req, res, next) => {
+	try {
+		const {token} = req.cookies;
+		const { cityName } = req.params;
+		const { _id } = await verifyToken(token);
+
+		const user = await UserModel.findById(_id);
+
+		removeItem(user.favCities, cityName);
+		await user.save();
+		res.status(200).send(user);
+	} catch (error) {
+		console.log("fav delete error", error);
+		next(error);
+	}
 };

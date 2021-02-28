@@ -5,11 +5,14 @@ const {
   userLoginController,
   refreshTokenController,
   userLogoutController,
+  addFavCityController,
+  removeFavCityController
 } = require("./controller");
 const {
   oAuthRedirectController,
 } = require("../../utils/oAuthRedirectController");
 const userRoutes = express.Router();
+
 
 userRoutes.get(
   "/auth/googleRedirect",
@@ -23,5 +26,8 @@ userRoutes.get(
 userRoutes.get("/me", isAuthorized, userLoginController);
 userRoutes.post("/auth/refresh", refreshTokenController);
 userRoutes.get("/auth/logout", userLogoutController);
+userRoutes.get("/favorites/:cityName", isAuthorized, addFavCityController);
+userRoutes.delete("/favorites/:cityName", isAuthorized, removeFavCityController);
+
 
 module.exports = userRoutes;

@@ -20,8 +20,8 @@ const server = express();
 PORT || 5050;
 
 //Middlewares
-server.use(cookieParser());
-
+server.use(express.json());
+server.use(passport.initialize());
 const whiteList = [FE_URL, FE_URL_PROD];
 // const corsOptions = {
 //   orgin: (orgin, callback) => {
@@ -34,9 +34,9 @@ const whiteList = [FE_URL, FE_URL_PROD];
 //   credentials: true, //credentials=cookies
 // };
 server.use(cors({origin: whiteList,
-  credentials: true})); //if using cookies, you can't leave cors empty
-server.use(passport.initialize());
-server.use(express.json());
+credentials: true})); //if using cookies, you can't leave cors empty
+server.use(cookieParser());
+
 
 //Routes
 server.use("/users", userRoutes);
